@@ -1,0 +1,27 @@
+package dojo.supermarket.model;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class OfferTest {
+    @Test
+    void buildInstanceShouldntThrowAnything() {
+        assertDoesNotThrow(() -> new Offer(
+                SpecialOfferType.THREE_FOR_TWO,
+                new Product("Lit", ProductUnit.EACH),
+                3.0 /* ? */));
+    }
+
+    @Test
+    void testGetterAndPropertiesShouldReturnDataProvidedInConstructor() {
+        SpecialOfferType offerType = SpecialOfferType.THREE_FOR_TWO;
+        Product product = new Product("Lit", ProductUnit.EACH);
+        double argument = 3.0; /* What argument does mean? */
+        Offer offer = new Offer(offerType, product, argument);
+        assertEquals(product, offer.getProduct());
+        assertEquals(offerType, offer.offerType);
+        assertEquals(argument, offer.argument);
+    }
+}
