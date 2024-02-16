@@ -14,9 +14,9 @@ public class ShoppingCartTest {
 
     public SupermarketCatalog getCatalog() {
         HashMapCatalog catalog = new HashMapCatalog();
-        catalog.addProduct(TOMATO, 5.7);
-        catalog.addProduct(POTATO, 4.1);
-        catalog.addProduct(SALAD, 9.5);
+        catalog.addProduct(TOMATO, 4);
+        catalog.addProduct(POTATO, 3);
+        catalog.addProduct(SALAD, 9);
         return catalog;
     }
 
@@ -53,7 +53,7 @@ public class ShoppingCartTest {
         Receipt r = new Receipt();
         cart.handleOffers(r, getOffers(), getCatalog());
 
-        Assertions.assertEquals(r.getDiscounts(), List.of(new Discount(TOMATO, "2 for 5.0", -6.4)));
+        Assertions.assertEquals(r.getDiscounts(), List.of(new Discount(TOMATO, "2 for 5.0", -3)));
 
         System.out.println(r.getDiscounts());
     }
