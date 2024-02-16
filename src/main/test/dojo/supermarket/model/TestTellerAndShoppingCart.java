@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 
-public class ShoppingCartTest {
+public class TestTellerAndShoppingCart {
 
-    private static final Product TOMATO = new Product("tomato", ProductUnit.EACH);
-    private static final Product POTATO = new Product("potato", ProductUnit.EACH);
-    private static final Product SALAD = new Product("salad", ProductUnit.KILO);
+    static final Product TOMATO = new Product("tomato", ProductUnit.EACH);
+    static final Product POTATO = new Product("potato", ProductUnit.EACH);
+    static final Product SALAD = new Product("salad", ProductUnit.KILO);
 
-    public SupermarketCatalog getCatalog() {
+    static SupermarketCatalog getCatalog() {
         HashMapCatalog catalog = new HashMapCatalog();
         catalog.addProduct(TOMATO, 4);
         catalog.addProduct(POTATO, 3);
@@ -20,7 +20,7 @@ public class ShoppingCartTest {
         return catalog;
     }
 
-    public Map<Product, Offer> getOffers() {
+    static Map<Product, Offer> getOffers() {
         return Map.of(TOMATO, new Offer(SpecialOfferType.TWO_FOR_AMOUNT, TOMATO, 5));
     }
 
@@ -42,19 +42,5 @@ public class ShoppingCartTest {
 
         Assertions.assertEquals(cart.getItems(), List.of(new ProductQuantity(TOMATO, 1), new ProductQuantity(TOMATO, 1)));
         Assertions.assertEquals(cart.productQuantities(), Map.of(TOMATO, 2d));
-    }
-
-    @Test
-    public void testBasicOffer() {
-        ShoppingCart cart = new ShoppingCart();
-        cart.addItemQuantity(TOMATO, 1);
-        cart.addItemQuantity(TOMATO, 1);
-
-        Receipt r = new Receipt();
-        cart.handleOffers(r, getOffers(), getCatalog());
-
-        Assertions.assertEquals(r.getDiscounts(), List.of(new Discount(TOMATO, "2 for 5.0", -3)));
-
-        System.out.println(r.getDiscounts());
     }
 }
