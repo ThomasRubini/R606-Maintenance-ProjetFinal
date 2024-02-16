@@ -12,14 +12,16 @@ public class TestTellerAndShoppingCart {
 
     public static class TestData {
         List<Pair<Product, Double>> products;
+        List<Offer> offers;
 
         Map<Product, Double> quantities;
         double totalPrice;
         List<ReceiptItem> receiptItems;
         List<Discount> discounts;
 
-        public TestData(List<Pair<Product, Double>> products, Map<Product, Double> quantities, double totalPrice, List<ReceiptItem> receiptItems, List<Discount> discounts) {
+        public TestData(List<Pair<Product, Double>> products, List<Offer> offers, Map<Product, Double> quantities, double totalPrice, List<ReceiptItem> receiptItems, List<Discount> discounts) {
             this.products = products;
+            this.offers = offers;
             this.quantities = quantities;
             this.totalPrice = totalPrice;
             this.receiptItems = receiptItems;
@@ -44,6 +46,7 @@ public class TestTellerAndShoppingCart {
         return List.of(
                 new TestData(
                         List.of(Pair.of(TOMATO, 1d), Pair.of(SALAD, 2d)),
+                        List.of(),
                         Map.of(SALAD, 2d, TOMATO, 1d),
                         22,
                         List.of(new ReceiptItem(TOMATO, 1, 4, 4), new ReceiptItem(SALAD, 2, 9, 18)),
@@ -51,6 +54,7 @@ public class TestTellerAndShoppingCart {
                 ),
                 new TestData(
                         List.of(Pair.of(TOMATO, 1d), Pair.of(SALAD, 1d), Pair.of(TOMATO, 2d)),
+                        List.of(),
                         Map.of(SALAD, 1d, TOMATO, 3d),
                         21,
                         List.of(new ReceiptItem(TOMATO, 1, 4, 4), new ReceiptItem(SALAD, 1, 9, 9), new ReceiptItem(TOMATO, 2, 4, 8)),
@@ -61,9 +65,12 @@ public class TestTellerAndShoppingCart {
 
     @ParameterizedTest
     @MethodSource("getAllTestData")
-    public void testWithoutOffers(TestData data) {
+    public void test(TestData data) {
         SupermarketCatalog catalog = getCatalog();
         Teller teller = new Teller(catalog);
+        for(Offer offer : data.offers) {
+            teller.addSpecialOffer(offer.offerType, offer.getProduct(), offer.argument);
+        }
 
         ShoppingCart cart = new ShoppingCart();
         for(Pair<Product, Double> pair : data.products) {
