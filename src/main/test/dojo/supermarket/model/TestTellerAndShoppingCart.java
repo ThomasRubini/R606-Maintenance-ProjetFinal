@@ -85,6 +85,14 @@ public class TestTellerAndShoppingCart {
                         List.of(new Discount(TOMATO, "3 for 2", -4))
                 ),
                 new TestData(
+                        List.of(Pair.of(TOMATO, 3d)),
+                        List.of(new Offer(SpecialOfferType.THREE_FOR_TWO, TOMATO, 5)),
+                        Map.of(TOMATO, 3d),
+                        8,
+                        List.of(new ReceiptItem(TOMATO, 3, 4, 12)),
+                        List.of(new Discount(TOMATO, "3 for 2", -4))
+                ),
+                new TestData(
                         List.of(Pair.of(TOMATO, 5d)),
                         List.of(new Offer(SpecialOfferType.TEN_PERCENT_DISCOUNT, TOMATO, 5)),
                         Map.of(TOMATO, 5d),
