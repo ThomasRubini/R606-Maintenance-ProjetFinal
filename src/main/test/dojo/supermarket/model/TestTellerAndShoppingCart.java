@@ -59,6 +59,38 @@ public class TestTellerAndShoppingCart {
                         21,
                         List.of(new ReceiptItem(TOMATO, 1, 4, 4), new ReceiptItem(SALAD, 1, 9, 9), new ReceiptItem(TOMATO, 2, 4, 8)),
                         List.of()
+                ),
+                new TestData(
+                        List.of(Pair.of(TOMATO, 1d), Pair.of(SALAD, 1d), Pair.of(TOMATO, 2d)),
+                        List.of(new Offer(SpecialOfferType.TWO_FOR_AMOUNT, TOMATO, 5)),
+                        Map.of(SALAD, 1d, TOMATO, 3d),
+                        18,
+                        List.of(new ReceiptItem(TOMATO, 1, 4, 4), new ReceiptItem(SALAD, 1, 9, 9), new ReceiptItem(TOMATO, 2, 4, 8)),
+                        List.of(new Discount(TOMATO, "2 for 5.0", -3))
+                ),
+                new TestData(
+                        List.of(Pair.of(TOMATO, 5d)),
+                        List.of(new Offer(SpecialOfferType.FIVE_FOR_AMOUNT, TOMATO, 5)),
+                        Map.of(TOMATO, 5d),
+                        5,
+                        List.of(new ReceiptItem(TOMATO, 5, 4, 20)),
+                        List.of(new Discount(TOMATO, "5 for 5.0", -15))
+                ),
+                new TestData(
+                        List.of(Pair.of(TOMATO, 5d)),
+                        List.of(new Offer(SpecialOfferType.THREE_FOR_TWO, TOMATO, 5)),
+                        Map.of(TOMATO, 5d),
+                        16,
+                        List.of(new ReceiptItem(TOMATO, 5, 4, 20)),
+                        List.of(new Discount(TOMATO, "3 for 2", -4))
+                ),
+                new TestData(
+                        List.of(Pair.of(TOMATO, 5d)),
+                        List.of(new Offer(SpecialOfferType.TEN_PERCENT_DISCOUNT, TOMATO, 5)),
+                        Map.of(TOMATO, 5d),
+                        19,
+                        List.of(new ReceiptItem(TOMATO, 5, 4, 20)),
+                        List.of(new Discount(TOMATO, "5.0% off", -1))
                 )
         );
     }
