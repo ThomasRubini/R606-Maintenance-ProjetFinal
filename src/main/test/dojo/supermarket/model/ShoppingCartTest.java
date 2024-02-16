@@ -8,9 +8,9 @@ import java.util.Map;
 
 public class ShoppingCartTest {
 
-    private static Product TOMATO = new Product("tomato", ProductUnit.EACH);
-    private static Product POTATO = new Product("potato", ProductUnit.EACH);
-    private static Product SALAD = new Product("salad", ProductUnit.KILO);
+    private static final Product TOMATO = new Product("tomato", ProductUnit.EACH);
+    private static final Product POTATO = new Product("potato", ProductUnit.EACH);
+    private static final Product SALAD = new Product("salad", ProductUnit.KILO);
 
     public SupermarketCatalog getCatalog() {
         HashMapCatalog catalog = new HashMapCatalog();
