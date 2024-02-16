@@ -18,7 +18,10 @@ public class ShoppingCartTest {
         catalog.addProduct(POTATO, 4.1);
         catalog.addProduct(SALAD, 9.5);
         return catalog;
+    }
 
+    public Map<Product, Offer> getOffers() {
+        return Map.of(TOMATO, new Offer(SpecialOfferType.TWO_FOR_AMOUNT, TOMATO, 5));
     }
 
     @Test
@@ -39,5 +42,19 @@ public class ShoppingCartTest {
 
         Assertions.assertEquals(cart.getItems(), List.of(new ProductQuantity(TOMATO, 1), new ProductQuantity(TOMATO, 1)));
         Assertions.assertEquals(cart.productQuantities(), Map.of(TOMATO, 2d));
+    }
+
+    @Test
+    public void testBasicOffer() {
+        ShoppingCart cart = new ShoppingCart();
+        cart.addItemQuantity(TOMATO, 1);
+        cart.addItemQuantity(TOMATO, 1);
+
+        Receipt r = new Receipt();
+        cart.handleOffers(r, getOffers(), getCatalog());
+
+        Assertions.assertEquals(r.getDiscounts(), List.of(new Discount(TOMATO, "2 for 5.0", -6.4)));
+
+        System.out.println(r.getDiscounts());
     }
 }

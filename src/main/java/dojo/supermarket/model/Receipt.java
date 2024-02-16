@@ -35,4 +35,12 @@ public class Receipt {
     public List<Discount> getDiscounts() {
         return discounts;
     }
+
+    @Override
+    public String toString() {
+        return "Receipt{" +
+                "items=" + items +
+                ", discounts=" + discounts +
+                '}';
+    }
 }
