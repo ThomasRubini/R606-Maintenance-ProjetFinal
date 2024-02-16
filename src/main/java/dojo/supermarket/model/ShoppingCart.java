@@ -47,12 +47,11 @@ public class ShoppingCart {
                     double total = offer.argument * (quantityAsInt / 2) + quantityAsInt % 2 * unitPrice;
                     double discountN = unitPrice * quantity - total;
                     receipt.addDiscount(new Discount(p, "2 for " + offer.argument, -discountN));
-                } if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && quantityAsInt >= 5) {
+                } else if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && quantityAsInt >= 5) {
                     int numberOfXs = quantityAsInt / 5;
                     double discountTotal = unitPrice * quantity - (offer.argument * numberOfXs + quantityAsInt % 5 * unitPrice);
                     receipt.addDiscount(new Discount(p, "5 for " + offer.argument, -discountTotal));
-                }
-                if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT) {
+                } else if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT) {
                     receipt.addDiscount(new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0));
                 }
             }
