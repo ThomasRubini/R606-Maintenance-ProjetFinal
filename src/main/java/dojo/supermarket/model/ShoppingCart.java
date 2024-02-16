@@ -36,8 +36,7 @@ public class ShoppingCart {
         double quantity = productQuantities.get(p);
         int quantityAsInt = (int) quantity;
         if (offer.offerType == SpecialOfferType.THREE_FOR_TWO && quantityAsInt > 2) {
-            int numberOfXs = quantityAsInt / 3;
-            double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
+            double discountAmount = quantityAsInt / 3 * unitPrice;
             receipt.addDiscount(new Discount(p, "3 for 2", -discountAmount));
         } else if (offer.offerType == SpecialOfferType.TWO_FOR_AMOUNT && quantityAsInt >= 2) {
             double total = offer.argument * (quantityAsInt / 2) + quantityAsInt % 2 * unitPrice;
