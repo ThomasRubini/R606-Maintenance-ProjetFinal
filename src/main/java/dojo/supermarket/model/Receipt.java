@@ -3,6 +3,7 @@ package dojo.supermarket.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Receipt {
 
@@ -42,5 +43,18 @@ public class Receipt {
                 "items=" + items +
                 ", discounts=" + discounts +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Receipt receipt = (Receipt) o;
+        return Objects.equals(items, receipt.items) && Objects.equals(discounts, receipt.discounts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(items, discounts);
     }
 }
