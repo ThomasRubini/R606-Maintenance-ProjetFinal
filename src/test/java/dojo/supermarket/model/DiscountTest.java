@@ -26,4 +26,26 @@ class DiscountTest {
         assertEquals(discountDescription, discount.getDescription());
         assertEquals(discountAmount, discount.getDiscountAmount());
     }
+
+    @Test
+    void twoInstancesWithSameDataShouldBeEqual() {
+        Product product = new Product("Téléphone Samsung", ProductUnit.EACH);
+        String discountDescription = "C'est le Black Friday, profitez d'une réduction " +
+                "exclusive sur nos téléphones Samsung !";
+        double discountAmount = -45.0;
+        Discount discount1 = new Discount(product, discountDescription, discountAmount);
+        Discount discount2 = new Discount(product, discountDescription, discountAmount);
+        assertEquals(discount1, discount2);
+    }
+
+    @Test
+    void testToStringShouldReturnAnAppropriateRepresentation() {
+        Product product = new Product("Souris gamer Razer", ProductUnit.EACH);
+        String discountDescription = "C'est le Black Friday, profitez de souris gamer Razer " +
+                "à petits prix !";
+        double discountAmount = -35.0;
+        Discount discount = new Discount(product, discountDescription, discountAmount);
+        assertEquals("Discount{description='" + discountDescription + '\'' + ", discountAmount="
+                + discountAmount + ", product=" + product + '}', discount.toString());
+    }
 }
