@@ -10,45 +10,43 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ReceiptTest {
 
     private Receipt receipt;
-    private Product product;
+    private static final Product PRODUCT = new Product("Sac", ProductUnit.EACH);
+    private static final double QUANTITY = 30.0;
+    private static final double PRICE = 4.75;
+    private static final double TOTAL_PRICE = 142.5;
+    private static final String DESCRIPTION = "C'est la rentrée ! -30 % sur les sacs";
+    private static final double DISCOUNT_AMOUNT = -42.75;
 
     @BeforeEach
     void setUp() {
         receipt = new Receipt();
-        product = new Product("Sac", ProductUnit.EACH);
     }
 
     @Test
     void addingAProductShouldAddAProduct() {
-        double quantity = 30.0;
-        double price = 4.75;
-        double totalPrice = 142.5;
-
-        receipt.addProduct(product, quantity, price, totalPrice);
+        receipt.addProduct(PRODUCT, QUANTITY, PRICE, TOTAL_PRICE);
         List<ReceiptItem> receipts = receipt.getItems();
         assertEquals(1, receipts.size());
 
         ReceiptItem receiptItem = receipts.get(0);
-        assertEquals(quantity, receiptItem.getQuantity());
-        assertEquals(product, receiptItem.getProduct());
-        assertEquals(price, receiptItem.getPrice());
-        assertEquals(totalPrice, receiptItem.getTotalPrice());
+        assertEquals(QUANTITY, receiptItem.getQuantity());
+        assertEquals(PRODUCT, receiptItem.getProduct());
+        assertEquals(PRICE, receiptItem.getPrice());
+        assertEquals(TOTAL_PRICE, receiptItem.getTotalPrice());
     }
 
     @Test
     void addADiscountShouldAddADiscount() {
-        String description = "C'est la rentrée ! -30 % sur les sacs";
-        double discountAmount = -42.75;
-        Discount discount = new Discount(product, description, discountAmount);
+        Discount discount = new Discount(PRODUCT, DESCRIPTION, DISCOUNT_AMOUNT);
 
         receipt.addDiscount(discount);
         List<Discount> discounts = receipt.getDiscounts();
         assertEquals(1, discounts.size());
 
         Discount receiptDiscount = discounts.get(0);
-        assertEquals(product, receiptDiscount.getProduct());
-        assertEquals(description, receiptDiscount.getDescription());
-        assertEquals(discountAmount, receiptDiscount.getDiscountAmount());
+        assertEquals(PRODUCT, receiptDiscount.getProduct());
+        assertEquals(DESCRIPTION, receiptDiscount.getDescription());
+        assertEquals(DISCOUNT_AMOUNT, receiptDiscount.getDiscountAmount());
     }
 
     @Test
@@ -58,16 +56,30 @@ class ReceiptTest {
 
     @Test
     void addAProductWithADiscountShouldApplyTheDiscount() {
-        double quantity = 30.0;
-        double price = 4.75;
-        double totalPrice = 142.5;
-        String description = "C'est la rentrée ! -30 % sur les sacs";
-        double discountAmount = -42.75;
+        receipt.addDiscount(new Discount(PRODUCT, DESCRIPTION, DISCOUNT_AMOUNT));
+        receipt.addProduct(PRODUCT, QUANTITY, PRICE, TOTAL_PRICE);
 
-        Discount discount = new Discount(product, description, discountAmount);
-        receipt.addDiscount(discount);
-        receipt.addProduct(product, quantity, price, totalPrice);
+        assertEquals(TOTAL_PRICE + DISCOUNT_AMOUNT, receipt.getTotalPrice());
+    }
 
-        assertEquals(totalPrice + discountAmount, receipt.getTotalPrice());
+    @Test
+    void testToStringShouldReturnAnAppropriateRepresentation() {
+        receipt.addDiscount(new Discount(PRODUCT, DESCRIPTION, DISCOUNT_AMOUNT));
+        receipt.addProduct(PRODUCT, QUANTITY, PRICE, TOTAL_PRICE);
+
+        assertEquals("Receipt{items=" + receipt.getItems().toString() + ", discounts="
+                + receipt.getDiscounts().toString() + '}', receipt.toString());
+    }
+
+    @Test
+    void twoInstancesWithSameDataShouldBeEqual() {
+        receipt.addDiscount(new Discount(PRODUCT, DESCRIPTION, DISCOUNT_AMOUNT));
+        receipt.addProduct(PRODUCT, QUANTITY, PRICE, TOTAL_PRICE);
+
+        Receipt receipt2 = new Receipt();
+        receipt2.addDiscount(new Discount(PRODUCT, DESCRIPTION, DISCOUNT_AMOUNT));
+        receipt2.addProduct(PRODUCT, QUANTITY, PRICE, TOTAL_PRICE);
+
+        assertEquals(receipt, receipt2);
     }
 }
