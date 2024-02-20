@@ -35,19 +35,9 @@ public class ShoppingCart {
     void handleOffer(Receipt receipt, Offer offer, Product p, double unitPrice) {
         double quantity = productQuantities.get(p);
         int quantityAsInt = (int) quantity;
-        if (offer.offerType == SpecialOfferType.THREE_FOR_TWO && quantityAsInt > 2) {
-            double discountAmount = quantityAsInt / 3 * unitPrice;
-            receipt.addDiscount(new Discount(p, "3 for 2", -discountAmount));
-        } else if (offer.offerType == SpecialOfferType.TWO_FOR_AMOUNT && quantityAsInt >= 2) {
-            double total = offer.argument * (quantityAsInt / 2) + quantityAsInt % 2 * unitPrice;
-            double discountN = unitPrice * quantity - total;
-            receipt.addDiscount(new Discount(p, "2 for " + offer.argument, -discountN));
-        } else if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && quantityAsInt >= 5) {
-            int numberOfXs = quantityAsInt / 5;
-            double discountTotal = unitPrice * quantity - (offer.argument * numberOfXs + quantityAsInt % 5 * unitPrice);
-            receipt.addDiscount(new Discount(p, "5 for " + offer.argument, -discountTotal));
-        } else if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT) {
-            receipt.addDiscount(new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0));
+        Discount maybeDiscount = offer.getDiscount(unitPrice, quantityAsInt);
+        if (maybeDiscount != null) {
+            receipt.addDiscount(maybeDiscount);
         }
     }
 

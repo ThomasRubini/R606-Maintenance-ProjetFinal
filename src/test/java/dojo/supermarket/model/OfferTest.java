@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class OfferTest {
     @Test
     void buildInstanceShouldntThrowAnything() {
-        assertDoesNotThrow(() -> new Offer(
+        assertDoesNotThrow(() -> Offer.create(
                 SpecialOfferType.THREE_FOR_TWO,
                 new Product("Lit", ProductUnit.EACH),
                 3.0 /* ? */));
@@ -19,7 +19,7 @@ class OfferTest {
         SpecialOfferType offerType = SpecialOfferType.THREE_FOR_TWO;
         Product product = new Product("Lit", ProductUnit.EACH);
         double argument = 3.0; /* What argument does mean? */
-        Offer offer = new Offer(offerType, product, argument);
+        Offer offer = Offer.create(offerType, product, argument);
         assertEquals(product, offer.getProduct());
         assertEquals(offerType, offer.offerType);
         assertEquals(argument, offer.argument);
