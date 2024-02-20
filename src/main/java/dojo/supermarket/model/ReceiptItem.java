@@ -35,8 +35,7 @@ public class ReceiptItem {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ReceiptItem)) return false;
-        ReceiptItem that = (ReceiptItem) o;
+        if (!(o instanceof ReceiptItem that)) return false;
         return Double.compare(that.price, price) == 0 &&
                 Double.compare(that.totalPrice, totalPrice) == 0 &&
                 Double.compare(that.quantity, quantity) == 0 &&
