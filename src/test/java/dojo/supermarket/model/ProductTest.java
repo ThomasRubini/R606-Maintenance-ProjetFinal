@@ -28,4 +28,13 @@ class ProductTest {
         Product product2 = new Product(productName, productUnit);
         assertEquals(product1, product2);
     }
+
+    @Test
+    void testToStringShouldReturnAnAppropriateRepresentation() {
+        String productName = "Riz";
+        ProductUnit productUnit = ProductUnit.EACH;
+        Product product = new Product(productName, productUnit);
+        assertEquals("Product{name='" + productName + '\'' + ", unit=" + productUnit + '}',
+                product.toString());
+    }
 }
