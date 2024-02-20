@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Test for {@link Teller} and {@link ShoppingCart} classes.
  */
-class TestTellerAndShoppingCart {
+class TellerAndShoppingCartTest {
 
     static class TestData {
         List<Pair<Product, Double>> products;
