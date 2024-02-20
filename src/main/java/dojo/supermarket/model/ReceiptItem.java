@@ -2,6 +2,13 @@ package dojo.supermarket.model;
 
 import java.util.Objects;
 
+/**
+ * Data class representing a receipt item.
+ *
+ * <p>
+ * It is composed of a product, a price, a total price and a quantity.
+ * </p>
+ */
 public class ReceiptItem {
 
     private final Product product;
@@ -9,6 +16,14 @@ public class ReceiptItem {
     private final double totalPrice;
     private final double quantity;
 
+    /**
+     * Construct a {@link ReceiptItem} instance.
+     *
+     * @param p          the product to use
+     * @param quantity   the quantity of the product
+     * @param price      the price of one unit of the product
+     * @param totalPrice the total price of the product
+     */
     ReceiptItem(Product p, double quantity, double price, double totalPrice) {
         this.product = p;
         this.quantity = quantity;
@@ -16,18 +31,38 @@ public class ReceiptItem {
         this.totalPrice = totalPrice;
     }
 
+    /**
+     * Get the price of one unit of the product.
+     *
+     * @return the price of one unit of the product
+     */
     public double getPrice() {
         return price;
     }
 
+    /**
+     * Get the product.
+     *
+     * @return the product
+     */
     public Product getProduct() {
         return product;
     }
 
+    /**
+     * Get the quantity of the product.
+     *
+     * @return the quantity of the product
+     */
     public double getQuantity() {
         return quantity;
     }
 
+    /**
+     * Get the total price of the product.
+     *
+     * @return the total price of the product
+     */
     public double getTotalPrice() {
         return totalPrice;
     }
