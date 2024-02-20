@@ -5,7 +5,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test for {@link Discount}.
+ */
 class DiscountTest {
+
     @Test
     void buildInstanceShouldntThrowAnything() {
         Product product = new Product("Framework 16'", ProductUnit.EACH);

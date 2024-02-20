@@ -7,6 +7,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test for {@link Receipt}.
+ */
 class ReceiptTest {
 
     private Receipt receipt;

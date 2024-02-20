@@ -5,7 +5,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test for {@link Offer}.
+ */
 class OfferTest {
+
     @Test
     void buildInstanceShouldntThrowAnything() {
         assertDoesNotThrow(() -> Offer.create(

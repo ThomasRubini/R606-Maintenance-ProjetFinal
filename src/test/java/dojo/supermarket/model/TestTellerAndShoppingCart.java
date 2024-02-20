@@ -9,6 +9,9 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test for {@link Teller} and {@link ShoppingCart} classes.
+ */
 class TestTellerAndShoppingCart {
 
     static class TestData {
