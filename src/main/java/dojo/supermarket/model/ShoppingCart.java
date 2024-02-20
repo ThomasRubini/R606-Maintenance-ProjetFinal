@@ -33,9 +33,7 @@ public class ShoppingCart {
     }
 
     void handleOffer(Receipt receipt, Offer offer, Product p, double unitPrice) {
-        double quantity = productQuantities.get(p);
-        int quantityAsInt = (int) quantity;
-        Discount maybeDiscount = offer.getDiscount(unitPrice, quantityAsInt);
+        Discount maybeDiscount = offer.getDiscount(unitPrice, productQuantities.get(p).intValue());
         if (maybeDiscount != null) {
             receipt.addDiscount(maybeDiscount);
         }
