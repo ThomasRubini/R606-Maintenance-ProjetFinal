@@ -35,81 +35,83 @@ class TestTellerAndShoppingCart {
         }
     }
 
-    private static final Product TOMATO = new Product("tomato", ProductUnit.EACH);
-    private static final Product POTATO = new Product("potato", ProductUnit.EACH);
-    private static final Product SALAD = new Product("salad", ProductUnit.KILO);
+    private static final Product TOOTHBRUSH = new Product("toothbrush", ProductUnit.EACH);
+    private static final Product APPLE = new Product("apple", ProductUnit.KILO);
+    private static final Product RICE_BAG = new Product("rice bag", ProductUnit.EACH);
+    private static final Product TOOTHPASTE = new Product("toothpaste", ProductUnit.EACH);
+    private static final Product CHERRY_TOMATO_CAN = new Product("cherry tomatoes can", ProductUnit.EACH);
 
 
     static SupermarketCatalog getCatalog() {
         HashMapCatalog catalog = new HashMapCatalog();
-        catalog.addProduct(TOMATO, 4);
-        catalog.addProduct(POTATO, 3);
-        catalog.addProduct(SALAD, 9);
+        catalog.addProduct(TOOTHBRUSH, 0.99);
+        catalog.addProduct(APPLE, 1.99);
+        catalog.addProduct(RICE_BAG, 2.49);
+        catalog.addProduct(TOOTHPASTE, 1.79);
+        catalog.addProduct(CHERRY_TOMATO_CAN, 0.69);
         return catalog;
     }
 
     static List<TestData> getAllTestData() {
         return List.of(
                 new TestData(
-                        List.of(Pair.of(TOMATO, 1d), Pair.of(SALAD, 2d)),
+                        List.of(Pair.of(TOOTHBRUSH, 1d), Pair.of(APPLE, 2d)),
                         List.of(),
-                        Map.of(SALAD, 2d, TOMATO, 1d),
-                        22,
-                        List.of(new ReceiptItem(TOMATO, 1, 4, 4),
-                                new ReceiptItem(SALAD, 2, 9, 18)),
+                        Map.of(APPLE, 2d, TOOTHBRUSH, 1d),
+                        4.97,
+                        List.of(new ReceiptItem(TOOTHBRUSH, 1, 0.99, 0.99),
+                                new ReceiptItem(APPLE, 2, 1.99, 3.98)),
                         List.of()
                 ),
                 new TestData(
-                        List.of(Pair.of(TOMATO, 1d), Pair.of(SALAD, 1d), Pair.of(TOMATO, 2d)),
+                        List.of(Pair.of(TOOTHBRUSH, 1d), Pair.of(APPLE, 1d), Pair.of(TOOTHBRUSH, 2d)),
                         List.of(),
-                        Map.of(SALAD, 1d, TOMATO, 3d),
-                        21,
-                        List.of(new ReceiptItem(TOMATO, 1, 4, 4),
-                                new ReceiptItem(SALAD, 1, 9, 9),
-                                new ReceiptItem(TOMATO, 2, 4, 8)),
+                        Map.of(APPLE, 1d, TOOTHBRUSH, 3d),
+                        4.96,
+                        List.of(new ReceiptItem(TOOTHBRUSH, 1, 0.99, 0.99),
+                                new ReceiptItem(APPLE, 1, 1.99, 1.99),
+                                new ReceiptItem(TOOTHBRUSH, 2, 0.99, 1.98)),
                         List.of()
                 ),
                 new TestData(
-                        List.of(Pair.of(TOMATO, 1d), Pair.of(SALAD, 1d), Pair.of(TOMATO, 2d)),
-                        List.of(Offer.create(SpecialOfferType.TWO_FOR_AMOUNT, TOMATO, 5)),
-                        Map.of(SALAD, 1d, TOMATO, 3d),
-                        18,
-                        List.of(new ReceiptItem(TOMATO, 1, 4, 4),
-                                new ReceiptItem(SALAD, 1, 9, 9),
-                                new ReceiptItem(TOMATO, 2, 4, 8)),
-                        List.of(new Discount(TOMATO, "2 for 5.0", -3))
+                        List.of(Pair.of(TOOTHBRUSH, 2d)),
+                        List.of(Offer.create(SpecialOfferType.TWO_FOR_AMOUNT, TOOTHBRUSH, 0.99)),
+                        Map.of(TOOTHBRUSH, 2d),
+                        0.99,
+                        List.of(new ReceiptItem(TOOTHBRUSH, 2, 0.99, 1.98)),
+                        List.of(new Discount(TOOTHBRUSH, "2 for 0.99", -0.99))
                 ),
                 new TestData(
-                        List.of(Pair.of(TOMATO, 5d)),
-                        List.of(Offer.create(SpecialOfferType.FIVE_FOR_AMOUNT, TOMATO, 5)),
-                        Map.of(TOMATO, 5d),
-                        5,
-                        List.of(new ReceiptItem(TOMATO, 5, 4, 20)),
-                        List.of(new Discount(TOMATO, "5 for 5.0", -15))
+                        List.of(Pair.of(APPLE, 5d)),
+                        List.of(Offer.create(SpecialOfferType.TEN_PERCENT_DISCOUNT, APPLE, 20)),
+                        Map.of(APPLE, 5d),
+                        7.959999999999999,
+                        List.of(new ReceiptItem(APPLE, 5, 1.99, 9.95)),
+                        List.of(new Discount(APPLE, "20.0% off", -1.99))
                 ),
                 new TestData(
-                        List.of(Pair.of(TOMATO, 5d)),
-                        List.of(Offer.create(SpecialOfferType.THREE_FOR_TWO, TOMATO, 5)),
-                        Map.of(TOMATO, 5d),
-                        16,
-                        List.of(new ReceiptItem(TOMATO, 5, 4, 20)),
-                        List.of(new Discount(TOMATO, "3 for 2", -4))
+                        List.of(Pair.of(RICE_BAG, 5d)),
+                        List.of(Offer.create(SpecialOfferType.TEN_PERCENT_DISCOUNT, RICE_BAG, 10)),
+                        Map.of(RICE_BAG, 5d),
+                        8.055,
+                        List.of(new ReceiptItem(RICE_BAG, 5, 1.79, 8.95)),
+                        List.of(new Discount(RICE_BAG, "10.0% off", -0.895))
                 ),
                 new TestData(
-                        List.of(Pair.of(TOMATO, 3d)),
-                        List.of(Offer.create(SpecialOfferType.THREE_FOR_TWO, TOMATO, 5)),
-                        Map.of(TOMATO, 3d),
-                        8,
-                        List.of(new ReceiptItem(TOMATO, 3, 4, 12)),
-                        List.of(new Discount(TOMATO, "3 for 2", -4))
+                        List.of(Pair.of(TOOTHPASTE, 5d)),
+                        List.of(Offer.create(SpecialOfferType.FIVE_FOR_AMOUNT, TOOTHPASTE, 7.49)),
+                        Map.of(TOOTHPASTE, 5d),
+                        7.49,
+                        List.of(new ReceiptItem(TOOTHPASTE, 5, 1.79, 8.95)),
+                        List.of(new Discount(TOOTHPASTE, "5 for 7.49", -1.459999999999999))
                 ),
                 new TestData(
-                        List.of(Pair.of(TOMATO, 5d)),
-                        List.of(Offer.create(SpecialOfferType.TEN_PERCENT_DISCOUNT, TOMATO, 5)),
-                        Map.of(TOMATO, 5d),
-                        19,
-                        List.of(new ReceiptItem(TOMATO, 5, 4, 20)),
-                        List.of(new Discount(TOMATO, "5.0% off", -1))
+                        List.of(Pair.of(CHERRY_TOMATO_CAN, 5d)),
+                        List.of(Offer.create(SpecialOfferType.TWO_FOR_AMOUNT, CHERRY_TOMATO_CAN, 0.99)),
+                        Map.of(CHERRY_TOMATO_CAN, 5d),
+                        2.67,
+                        List.of(new ReceiptItem(CHERRY_TOMATO_CAN, 5, 0.69, 3.4499999999999997)),
+                        List.of(new Discount(CHERRY_TOMATO_CAN, "2 for 0.99", -0.7799999999999998))
                 )
         );
     }
