@@ -2,20 +2,43 @@ package dojo.supermarket.model;
 
 import java.util.Objects;
 
+/**
+ * Data class for a product quantity.
+ *
+ * <p>
+ * A product quantity is composed of a product and a quantity.
+ * </p>
+ */
 public class ProductQuantity {
 
     private final Product product;
     private final double quantity;
 
+    /**
+     * Construct a new {@link ProductQuantity} instance.
+     *
+     * @param product  the product
+     * @param quantity the quantity of the product
+     */
     public ProductQuantity(Product product, double quantity) {
         this.product = product;
         this.quantity = quantity;
     }
 
+    /**
+     * Get the product.
+     *
+     * @return the product
+     */
     public Product getProduct() {
         return product;
     }
 
+    /**
+     * Get the quantity.
+     *
+     * @return the quantity
+     */
     public double getQuantity() {
         return quantity;
     }
