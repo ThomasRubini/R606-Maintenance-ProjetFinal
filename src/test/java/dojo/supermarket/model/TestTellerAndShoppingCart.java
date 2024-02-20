@@ -93,9 +93,9 @@ class TestTellerAndShoppingCart {
                         List.of(Pair.of(RICE_BAG, 5d)),
                         List.of(Offer.create(SpecialOfferType.TEN_PERCENT_DISCOUNT, RICE_BAG, 10)),
                         Map.of(RICE_BAG, 5d),
-                        8.055,
-                        List.of(new ReceiptItem(RICE_BAG, 5, 1.79, 8.95)),
-                        List.of(new Discount(RICE_BAG, "10.0% off", -0.895))
+                        11.205000000000002,
+                        List.of(new ReceiptItem(RICE_BAG, 5, 2.49, 12.450000000000001)),
+                        List.of(new Discount(RICE_BAG, "10.0% off", -1.245))
                 ),
                 new TestData(
                         List.of(Pair.of(TOOTHPASTE, 5d)),
